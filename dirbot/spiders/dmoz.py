@@ -3,8 +3,7 @@ import scrapy
 from scrapy.spider import Spider
 from scrapy.selector import Selector
 from scrapy.contrib.spiders import CSVFeedSpider
-# from dirbot.items import Website
-
+from dirbot.items import Website
 
 class DmozSpider(CSVFeedSpider):
     headers = ['street_number', 'street_name', 'street_direction']
@@ -17,5 +16,7 @@ class DmozSpider(CSVFeedSpider):
     def parse_row(self, response, row):
         return scrapy.Request('http://www.cookcountypropertyinfo.com/Pages/Address-Results.aspx?hnum=' + row['street_number'] + '&sname=' + row['street_name'] + '&city=chicago&zip=&unit=&dir=' + row['street_direction'])
 
-   #  def parse_address(self, response):
-#     	return response.body
+    def parse_address(self, response):
+    	webpage = Website()
+    	webpage = response.css("#ctl00_PlaceHolderMain_ctl00_resultsPanel::text").extract()
+    	return webpage
