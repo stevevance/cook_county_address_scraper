@@ -7,17 +7,15 @@ from scrapy.contrib.spiders import CSVFeedSpider
 
 
 class DmozSpider(CSVFeedSpider):
+    headers = ['street_number', 'street_name', 'street_direction']
     name = "propertyaddress"
     allowed_domains = ["www.cookcountypropertyinfo.com"]
     start_urls = (
         'http://www.chicagocityscape.com/propertytaxes/addresses_cleaned.csv',
     )
-    headers = ['street_number', 'street_name', 'street_direction']
     
     def parse_row(self, response, row):
         return scrapy.Request('http://www.cookcountypropertyinfo.com/Pages/Address-Results.aspx?hnum=' + row['street_number'] + '&sname=' + row['street_name'] + '&city=chicago&zip=&unit=&dir=' + row['street_direction'], callback=self.parse_address)
 
     def parse_address(self, response):
-    	item = response.body
-    	
-    	yield item
+    	yield response.body
