@@ -15,7 +15,7 @@ class DmozSpider(CSVFeedSpider):
     )
     
     def parse_row(self, response, row):
-        return scrapy.Request('http://www.cookcountypropertyinfo.com/Pages/Address-Results.aspx?hnum=' + row['street_number'] + '&sname=' + row['street_name'] + '&city=chicago&zip=&unit=&dir=' + row['street_direction'], callback=self.parse_address)
+        return scrapy.Request('http://www.cookcountypropertyinfo.com/Pages/Address-Results.aspx?hnum=' + row['street_number'] + '&sname=' + row['street_name'] + '&city=chicago&zip=&unit=&dir=' + row['street_direction'])
 
-    def parse_address(self, response):
-    	return response.body
+   #  def parse_address(self, response):
+#     	return response.body
