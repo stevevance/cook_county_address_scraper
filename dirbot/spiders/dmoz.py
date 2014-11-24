@@ -6,7 +6,7 @@ from scrapy.contrib.spiders import CSVFeedSpider
 from dirbot.items import Website
 
 class DmozSpider(CSVFeedSpider):
-    headers = ['street_number', 'street_name', 'street_direction']
+    headers = ['street_number', 'street_direction', 'street_name']
     name = "propertyaddress"
     allowed_domains = ["www.cookcountypropertyinfo.com"]
     start_urls = (
