@@ -1,34 +1,23 @@
+# -*- coding: utf-8 -*-
+import scrapy
 from scrapy.spider import Spider
 from scrapy.selector import Selector
+from scrapy.contrib.spiders import CSVFeedSpider
+# from dirbot.items import Website
 
-from dirbot.items import Website
 
+class DmozSpider(CSVFeedSpider):
+    name = "propertyaddress"
+    allowed_domains = ["www.cookcountypropertyinfo.com"]
+    start_urls = (
+        'http://www.chicagocityscape.com/propertytaxes/addresses_cleaned.csv',
+    )
+    headers = ['street_number', 'street_name', 'street_direction']
+    
+    def parse_row(self, response, row):
+        return scrapy.Request('http://cookcountypropertyinfo.com/Pages/Address-Results.aspx?hnum=' + row['street_number'] + '&sname=' + row['street_name'] + '&city=chicago&zip=&unit=&dir=' + row['street_direction'], callback=self.parse_address)
 
-class DmozSpider(Spider):
-    name = "dmoz"
-    allowed_domains = ["dmoz.org"]
-    start_urls = [
-        "http://www.dmoz.org/Computers/Programming/Languages/Python/Books/",
-        "http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/",
-    ]
-
-    def parse(self, response):
-        """
-        The lines below is a spider contract. For more info see:
-        http://doc.scrapy.org/en/latest/topics/contracts.html
-
-        @url http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/
-        @scrapes name
-        """
-        sel = Selector(response)
-        sites = sel.xpath('//ul[@class="directory-url"]/li')
-        items = []
-
-        for site in sites:
-            item = Website()
-            item['name'] = site.xpath('a/text()').extract()
-            item['url'] = site.xpath('a/@href').extract()
-            item['description'] = site.xpath('text()').re('-\s[^\n]*\\r')
-            items.append(item)
-
-        return items
+    def parse_address(self, response):
+    	item = response.body
+    	
+    	yield item
