@@ -3,4 +3,5 @@ from scrapy.item import Item, Field
 
 class Website(Item):
 
-    body = Field()
+    body = scrapy.Field()
+    url = scrapy.Field()

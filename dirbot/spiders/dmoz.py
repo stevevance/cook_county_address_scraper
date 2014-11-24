@@ -18,5 +18,6 @@ class DmozSpider(CSVFeedSpider):
 
     def parse_address(self, response):
     	webpage = Website()
-    	webpage = response.css("#ctl00_PlaceHolderMain_ctl00_resultsPanel::text").extract()
+    	webpage['url'] = response.url
+    	webpage['body'] = response.css("#ctl00_PlaceHolderMain_ctl00_resultsPanel::text").extract()
     	return webpage
