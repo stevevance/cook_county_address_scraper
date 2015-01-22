@@ -10,7 +10,7 @@ class DmozSpider(CSVFeedSpider):
     name = "propertyaddress"
     allowed_domains = ["www.cookcountypropertyinfo.com"]
     start_urls = (
-        'http://www.chicagocityscape.com/propertytaxes/addresses_yonah.csv',
+        'http://www.chicagocityscape.com/propertytaxes/addresses_cleaned.csv',
     )
     
     def parse_row(self, response, row):
