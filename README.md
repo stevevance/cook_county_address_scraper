@@ -1,9 +1,10 @@
 cook_county_address_scraper
 =======================
 
-Scrapes the Cook County Property Tax Info portal's Address Results page and dumps data in a more useful format. Give it a CSV file with three columns (but don't name them): street number, street direction, street name (street name can include the suffix, i.e. "ave"). 
+Scrapes the Cook County Property Tax Info portal's Address Results page and dumps data in a more useful format. Give it a CSV file with three columns (but don't name them): street number, street direction, street name (street name can include the suffix, "ave" or "st", but it's best to remove these). 
 
-The address results page gives you a list of all the PINs (Property Index Numbers) at that address. Use the cook_county_pin_scraper to scrape the PIN pages. 
+The address results page gives you a list of all the PINs (Property Index Numbers) at that address. 
+Write a script that uses regex matching to make a list of all the PINs without their dashes. Then use the cook_county_pin_scraper to scrape the PIN pages. 
 
 Setup and Running
 -----------------
@@ -24,4 +25,4 @@ scrapy crawl propertyaddress -o addresses.json -t jsonlines -L INFO
 
 Settings
 ----
-You can set the crawl rate in cook_county_address_scraper/settings.py: DOWNLOAD_DELAY = 0.05 (in ms/milliseconds)
+You can set the crawl rate in cook_county_address_scraper/settings.py: ````DOWNLOAD_DELAY = 0.05```` (in ms/milliseconds)
