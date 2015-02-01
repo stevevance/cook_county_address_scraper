@@ -10,7 +10,8 @@ class DmozSpider(CSVFeedSpider):
     name = "propertyaddress"
     allowed_domains = ["www.cookcountypropertyinfo.com"]
     start_urls = (
-        'http://www.chicagocityscape.com/propertytaxes/results/addresses_cleaned.csv',
+        ''
+        #this is the URL where your list of addresses are (each on a new line)
     )
     
     def parse_row(self, response, row):
@@ -20,5 +21,4 @@ class DmozSpider(CSVFeedSpider):
     	webpage = Website()
     	webpage['url'] = response.url
     	webpage['body'] = response.css("#ctl00_PlaceHolderMain_ctl00_resultsPanel").extract()
-    	#webpage['body'] = response.body
     	return webpage
